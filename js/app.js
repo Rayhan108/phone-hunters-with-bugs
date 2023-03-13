@@ -7,6 +7,7 @@ const loadPhones = async(searchText, dataLimit) =>{
 
 const displayPhones = (phones, dataLimit) =>{
     const phonesContainer = document.getElementById('phones-container');
+    
     // phonesContainer.textContent = '';
     // display 10 phones only 
     const showAll = document.getElementById('show-all');
@@ -56,7 +57,7 @@ const processSearch = (dataLimit) =>{
 }
 
 // handle search button click
-document.getElementById('#btn-search').addEventListener('click', function(){
+document.getElementById('btn-search').addEventListener('click', function(){
     // start loader
     processSearch(10);
 })
@@ -70,7 +71,7 @@ document.getElementById('search-field').addEventListener('keypress', function (e
 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
-    if(!isLoading){
+    if(isLoading){
         loaderSection.classList.remove('d-none')
     }
     else{
@@ -105,4 +106,4 @@ const displayPhoneDetails = phone =>{
     `
 }
 
-loadPhones('apple');
+// loadPhones('apple');
