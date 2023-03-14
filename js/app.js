@@ -68,7 +68,7 @@ document.getElementById('btn-search').addEventListener('click', function(){
 
 // search input field enter key handler
 document.getElementById('search-field').addEventListener('keypress', function (e) {
-    if (e.key === 'enter') {
+    if (e.key === 'Enter') {
         processSearch(10);
     }
 });
@@ -89,23 +89,24 @@ document.getElementById('btn-show-all').addEventListener('click', function(){
     processSearch();
 })
 
-const loadPhoneDetails = async(id) =>{
+const loadPhoneDetails = async id=>{
     const url =`https://openapi.programming-hero.com/api/phone/${id}`;
     
     const res = await fetch(url);
     const data = await res.json();
     displayPhoneDetails(data.data);
+    console.log(data)
 }
 
 const displayPhoneDetails = phone =>{
-    console.log(phone);
+    // console.log(phone);
     const modalTitle = document.getElementById('phoneDetailModalLabel');
     modalTitle.innerText = phone.name;
     const phoneDetails = document.getElementById('phone-details');
-    console.log(phone.mainFeatures.sensors[0]);
+    // console.log(phone);
     phoneDetails.innerHTML = `
         <p>Release Date: ${phone.releaseDate}</p>
-        <p>Storage: ${phone.mainFeatures}</p>
+        <p>Storage: ${phone.mainFeatures.storage}</p>
         <p>Others: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth Information'}</p>
         <p>Sensor: ${phone.mainFeatures.sensors ? phone.mainFeatures.sensors[0] : 'no sensor'}</p>
     `
