@@ -1,22 +1,25 @@
 const loadPhones = async(searchText, dataLimit) =>{
+    toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     const res = await fetch(url);
     const data = await res.json();
     displayPhones(data.data, dataLimit);
+    
 }
 
 const displayPhones = (phones, dataLimit) =>{
     const phonesContainer = document.getElementById('phones-container');
-    
-    // phonesContainer.textContent = '';
+console.log(dataLimit)
+    phonesContainer.textContent = '';
     // display 10 phones only 
     const showAll = document.getElementById('show-all');
     if(dataLimit && phones.length > 10) {
+        
         phones = phones.slice(0, 10);
         showAll.classList.remove('d-none');
     }
     else{
-        showAll.classList.add('d-hidden');
+        showAll.classList.add('d-none');
     }
     
 
@@ -30,11 +33,12 @@ const displayPhones = (phones, dataLimit) =>{
     }
     // display all phones
     phones.forEach(phone =>{
+        console.log(phone)
         const phoneDiv  = document.createElement('div');
         phoneDiv.classList.add('col');
-        phonesContainer.innerHTML = `
+        phoneDiv.innerHTML = `
         <div class="card p-4">
-            <img src="${phone.images}" class="card-img-top" alt="...">
+            <img src="${phone.image}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -85,8 +89,9 @@ document.getElementById('btn-show-all').addEventListener('click', function(){
     processSearch();
 })
 
-const loadPhoneDetails = async id =>{
-    const url =`www.openapi.programming-hero.com/api/phone/${id}`;
+const loadPhoneDetails = async(id) =>{
+    const url =`https://openapi.programming-hero.com/api/phone/${id}`;
+    
     const res = await fetch(url);
     const data = await res.json();
     displayPhoneDetails(data.data);
@@ -106,4 +111,4 @@ const displayPhoneDetails = phone =>{
     `
 }
 
-// loadPhones('apple');
+// loadPhones('apple',10);
